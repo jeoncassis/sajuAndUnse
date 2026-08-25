@@ -12,6 +12,9 @@ import com.jeonc.sajuAndUnse.screens.SajuResultScreen
 import com.jeonc.sajuAndUnse.screens.TodayFortuneScreen
 import com.jeonc.sajuAndUnse.screens.ZodiacScreen
 import com.jeonc.sajuAndUnse.screens.CompatibilityScreen
+import com.jeonc.sajuAndUnse.screens.TarotScreen
+import com.jeonc.sajuAndUnse.screens.PalmReadingScreen
+import com.jeonc.sajuAndUnse.screens.ConstellationScreen
 
 sealed class Screen(val route: String) {
     data object Home : Screen("home")
@@ -22,7 +25,10 @@ sealed class Screen(val route: String) {
     }
     data object TodayFortune : Screen("today_fortune")
     data object Zodiac : Screen("zodiac")
+    data object Constellation : Screen("constellation")
     data object Compatibility : Screen("compatibility")
+    data object Tarot : Screen("tarot")
+    data object PalmReading : Screen("palm_reading")
 }
 
 @Composable
@@ -61,8 +67,17 @@ fun NavGraph(navController: NavHostController) {
         composable(Screen.Zodiac.route) {
             ZodiacScreen(navController = navController)
         }
+        composable(Screen.Constellation.route) {
+            ConstellationScreen(navController = navController)
+        }
         composable(Screen.Compatibility.route) {
             CompatibilityScreen(navController = navController)
+        }
+        composable(Screen.Tarot.route) {
+            TarotScreen(navController = navController)
+        }
+        composable(Screen.PalmReading.route) {
+            PalmReadingScreen(navController = navController)
         }
     }
 }

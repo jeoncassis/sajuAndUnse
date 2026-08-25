@@ -9,9 +9,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 object AdManager {
-    // 테스트 광고 ID (출시 시 실제 ID로 교체)
-    const val BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
-    const val INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"
+    const val BANNER_AD_UNIT_ID = "ca-app-pub-8346854510090115/6882458335"
+    const val INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-8346854510090115/2891242439"
+    const val NATIVE_AD_UNIT_ID = "ca-app-pub-8346854510090115/8850146127"
 
     private var interstitialAd: InterstitialAd? = null
 

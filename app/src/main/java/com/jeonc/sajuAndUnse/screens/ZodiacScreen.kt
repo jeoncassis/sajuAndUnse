@@ -1,5 +1,6 @@
 package com.jeonc.sajuAndUnse.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -13,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -20,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.jeonc.sajuAndUnse.ads.BannerAdView
+import com.jeonc.sajuAndUnse.ads.NativeAdComposable
+import com.jeonc.sajuAndUnse.data.TodayFortuneGenerator
 import com.jeonc.sajuAndUnse.ui.theme.*
 
 data class ZodiacInfo(
@@ -128,6 +132,8 @@ fun ZodiacScreen(navController: NavController) {
             }
         } else {
             val zodiac = selectedZodiac!!
+            val zodiacIndex = zodiacs.indexOf(zodiac)
+            val daily = remember(zodiacIndex) { TodayFortuneGenerator.generateZodiacDaily(zodiacIndex) }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -156,6 +162,88 @@ fun ZodiacScreen(navController: NavController) {
 
                 ResultSection("성격 특성", zodiac.personality)
                 ResultSection("올해의 운세", zodiac.fortune)
+
+                NativeAdComposable()
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            "오늘의 운세",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Primary
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            daily.todayFortune,
+                            fontSize = 14.sp,
+                            lineHeight = 22.sp,
+                            color = Color.DarkGray
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    "주의 키워드",
+                                    fontSize = 13.sp,
+                                    color = Color.Gray,
+                                    fontWeight = FontWeight.Medium
+                                )
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    daily.cautionKeywords.forEach { keyword ->
+                                        Box(
+                                            modifier = Modifier
+                                                .clip(RoundedCornerShape(20.dp))
+                                                .background(Color(0xFFFFEBEE))
+                                                .padding(horizontal = 10.dp, vertical = 4.dp)
+                                        ) {
+                                            Text(
+                                                "⚠ $keyword",
+                                                fontSize = 12.sp,
+                                                color = Color(0xFFC62828),
+                                                fontWeight = FontWeight.Medium
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    "행운의 색",
+                                    fontSize = 13.sp,
+                                    color = Color.Gray,
+                                    fontWeight = FontWeight.Medium
+                                )
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Box(
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .background(Color(daily.luckyColorHex))
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    daily.luckyColor,
+                                    fontSize = 12.sp,
+                                    color = Color.DarkGray,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(16.dp))
 

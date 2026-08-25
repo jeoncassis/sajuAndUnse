@@ -1,6 +1,7 @@
 package com.jeonc.sajuAndUnse.ads
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
@@ -11,7 +12,7 @@ import com.google.android.gms.ads.AdView
 @Composable
 fun BannerAdView(modifier: Modifier = Modifier) {
     AndroidView(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().navigationBarsPadding(),
         factory = { context ->
             AdView(context).apply {
                 setAdSize(AdSize.BANNER)

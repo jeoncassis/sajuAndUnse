@@ -41,28 +41,40 @@ data class MenuItemData(
 fun HomeScreen(navController: NavController) {
     val menuItems = listOf(
         MenuItemData(
-            "사주풀이", "나의 사주팔자 분석",
-            Icons.Default.Star,
-            listOf(Primary, PrimaryDark),
-            Screen.SajuInput.route
-        ),
-        MenuItemData(
             "오늘의 운세", "오늘 하루 운세 확인",
             Icons.Default.DateRange,
             listOf(Secondary, SecondaryDark),
             Screen.TodayFortune.route
         ),
         MenuItemData(
-            "띠별 운세", "12지신 띠별 운세",
-            Icons.Default.Face,
-            listOf(Color(0xFF2E7D32), Color(0xFF1B5E20)),
-            Screen.Zodiac.route
-        ),
-        MenuItemData(
             "궁합 보기", "두 사람의 궁합 분석",
             Icons.Default.Favorite,
             listOf(Color(0xFFC62828), Color(0xFF8E0000)),
             Screen.Compatibility.route
+        ),
+        MenuItemData(
+            "별자리 운세", "12별자리 운세",
+            Icons.Default.Star,
+            listOf(Color(0xFF1565C0), Color(0xFF0D47A1)),
+            Screen.Constellation.route
+        ),
+        MenuItemData(
+            "손금·운명선", "손바닥 AI 손금 분석",
+            Icons.Default.Face,
+            listOf(Color(0xFF4E342E), Color(0xFF3E2723)),
+            Screen.PalmReading.route
+        ),
+        MenuItemData(
+            "사주풀이", "나의 사주팔자 분석",
+            Icons.Default.Star,
+            listOf(Primary, PrimaryDark),
+            Screen.SajuInput.route
+        ),
+        MenuItemData(
+            "타로점 보기", "타로카드로 운명 점치기",
+            Icons.Default.Star,
+            listOf(Color(0xFF4A148C), Color(0xFF1A0033)),
+            Screen.Tarot.route
         )
     )
 

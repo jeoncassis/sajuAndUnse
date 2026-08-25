@@ -25,6 +25,7 @@ import com.jeonc.sajuAndUnse.ads.BannerAdView
 import com.jeonc.sajuAndUnse.data.Gender
 import com.jeonc.sajuAndUnse.data.SajuCalculator
 import com.jeonc.sajuAndUnse.data.SajuInput
+import com.jeonc.sajuAndUnse.data.TojeongCalculator
 import com.jeonc.sajuAndUnse.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,6 +45,7 @@ fun SajuResultScreen(
         gender = if (gender == 0) Gender.MALE else Gender.FEMALE
     )
     val result = SajuCalculator.calculate(input)
+    val tojeong = TojeongCalculator.calculate(year, month, day)
 
     Scaffold(
         topBar = {
@@ -113,6 +115,87 @@ fun SajuResultScreen(
             ResultSection("연애/결혼", result.loveAdvice)
             ResultSection("건강", result.healthAdvice)
 
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // 토정비결 구분선
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(modifier = Modifier.weight(1f).height(1.dp).background(Color(0xFFD4AF37)))
+                Text(
+                    "  토정비결 (土亭秘訣)  ",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFFD4AF37)
+                )
+                Box(modifier = Modifier.weight(1f).height(1.dp).background(Color(0xFFD4AF37)))
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // 괘 정보 카드
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF1A1A2E))
+            ) {
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        tojeong.gwaeHanja,
+                        fontSize = 48.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFFD4AF37)
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        tojeong.gwaeName,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        tojeong.gwaeKeyword,
+                        fontSize = 13.sp,
+                        color = Color(0xFFD4AF37)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            ResultSection("연운 총평", tojeong.yearFortune)
+
+            // 계절별 운세
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        "계절별 운세",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Primary
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    SeasonRow("🌸 봄 (1~3월)", tojeong.spring)
+                    Spacer(modifier = Modifier.height(10.dp))
+                    SeasonRow("☀️ 여름 (4~6월)", tojeong.summer)
+                    Spacer(modifier = Modifier.height(10.dp))
+                    SeasonRow("🍂 가을 (7~9월)", tojeong.autumn)
+                    Spacer(modifier = Modifier.height(10.dp))
+                    SeasonRow("❄️ 겨울 (10~12월)", tojeong.winter)
+                }
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
@@ -140,6 +223,15 @@ fun PillarColumn(title: String, value: String) {
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Medium
         )
+    }
+}
+
+@Composable
+fun SeasonRow(label: String, content: String) {
+    Column {
+        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Primary)
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(content, fontSize = 14.sp, lineHeight = 22.sp, color = Color.DarkGray)
     }
 }
 

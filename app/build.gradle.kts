@@ -18,8 +18,8 @@ android {
         applicationId = "com.jeonc.sajuAndUnse"
         minSdk = 26
         targetSdk = 37
-        versionCode = 11
-        versionName = "1.0.10"
+        versionCode = 12
+        versionName = "1.0.11"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -83,6 +83,9 @@ dependencies {
     // AdMob(play-services-basement) 등 여러 라이브러리가 오래된 fragment:1.1.0을 transitive로
     // 끌고 와서 Play Console이 오래된 SDK로 경고하는 문제 방지 (최신 버전으로 강제 승격)
     implementation("androidx.fragment:fragment:1.9.0")
+    // AdMob/CameraX가 transitive로 끌고 오는 구버전 work-runtime:2.7.0이 R8 릴리즈 빌드에서
+    // WorkDatabase(Room) 생성 실패로 앱 시작 크래시를 유발 (두뇌마스터에서 동일 문제 확인, 최신으로 강제 승격)
+    implementation("androidx.work:work-runtime-ktx:2.11.2")
 
     // AdMob
     implementation("com.google.android.gms:play-services-ads:25.4.0")
