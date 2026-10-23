@@ -18,8 +18,8 @@ android {
         applicationId = "com.jeonc.sajuAndUnse"
         minSdk = 26
         targetSdk = 37
-        versionCode = 12
-        versionName = "1.0.11"
+        versionCode = 13
+        versionName = "1.0.12"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -86,6 +86,9 @@ dependencies {
     // AdMob/CameraX가 transitive로 끌고 오는 구버전 work-runtime:2.7.0이 R8 릴리즈 빌드에서
     // WorkDatabase(Room) 생성 실패로 앱 시작 크래시를 유발 (두뇌마스터에서 동일 문제 확인, 최신으로 강제 승격)
     implementation("androidx.work:work-runtime-ktx:2.11.2")
+
+    // 스토어 최신 버전 확인 (업데이트 안내 다이얼로그)
+    implementation("com.google.android.play:app-update:2.1.0")
 
     // AdMob
     implementation("com.google.android.gms:play-services-ads:25.4.0")
